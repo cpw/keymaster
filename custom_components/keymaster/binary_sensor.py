@@ -10,6 +10,7 @@ from homeassistant.components.binary_sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.const import EntityCategory
 from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -98,6 +99,7 @@ class KeymasterBinarySensor(KeymasterEntity, BinarySensorEntity):
         )
         self._attr_is_on: bool = False
         self._attr_available: bool = True
+        self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
     @callback
     def _handle_coordinator_update(self) -> None:

@@ -8,6 +8,7 @@ from typing import Any
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, SensorEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.const import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import CONF_SLOTS, CONF_START, COORDINATOR, DOMAIN
@@ -113,6 +114,7 @@ class KeymasterSensor(KeymasterEntity, SensorEntity):
             entity_description=entity_description,
         )
         self._attr_native_value: Any | None = None
+        self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
     @callback
     def _handle_coordinator_update(self) -> None:

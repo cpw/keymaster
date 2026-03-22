@@ -8,6 +8,7 @@ from typing import Any, Literal
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.const import EntityCategory
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -34,6 +35,7 @@ class KeymasterEntity(CoordinatorEntity[KeymasterCoordinator]):
         self.hass: HomeAssistant = entity_description.hass
         self.coordinator: KeymasterCoordinator = entity_description.coordinator
         self._config_entry: ConfigEntry = entity_description.config_entry
+        self._attr_entity_category = EntityCategory.CONFIG # everything about keymaster is surely config
         self.entity_description: KeymasterEntityDescription = entity_description
         self._property: str = entity_description.key  # <Platform>.<Property>.<SubProperty>:<Slot Number*>.<SubProperty>:<Slot Number*>  *Only if needed
         self._kmlock: KeymasterLock | None = self.coordinator.sync_get_lock_by_config_entry_id(
